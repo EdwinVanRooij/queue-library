@@ -1,15 +1,13 @@
-package com.company;
+package com.nonexistentcompany;
 
-import com.google.gson.Gson;
 import com.rabbitmq.client.*;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.concurrent.TimeoutException;
 
 public class RouteConsumer {
 
-    private final static String QUEUE_NAME = "hello2";
+    private final static String QUEUE_NAME = "queue_library_name";
 
     /**
      * Consumes Route objects from the RabbitMQ queue.

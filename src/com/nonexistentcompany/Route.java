@@ -1,4 +1,4 @@
-package com.company;
+package com.nonexistentcompany;
 
 import java.util.List;
 

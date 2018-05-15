@@ -1,4 +1,4 @@
-package com.company;
+package com.nonexistentcompany;
 
 import com.google.gson.Gson;
 import com.rabbitmq.client.Channel;
