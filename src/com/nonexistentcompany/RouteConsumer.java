@@ -13,7 +13,7 @@ public class RouteConsumer {
      * Consumes Route objects from the RabbitMQ queue.
      * @return Route
      */
-    public void consume(RouteHandler handler) {
+    public void consume(MessageHandler handler) {
         try {
             consumeMessage(handler);
         } catch (IOException | TimeoutException e) {
@@ -21,7 +21,7 @@ public class RouteConsumer {
         }
     }
 
-    private void consumeMessage(RouteHandler handler ) throws IOException, TimeoutException {
+    private void consumeMessage(MessageHandler handler ) throws IOException, TimeoutException {
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
         Connection connection = factory.newConnection();
@@ -37,7 +37,7 @@ public class RouteConsumer {
                 String message = new String(body, "UTF-8");
                 System.out.println(" [x] Received '" + message + "'");
 
-                handler.handleRoute(message);
+                handler.handleMessage(message);
             }
         };
         channel.basicConsume(QUEUE_NAME, true, consumer);

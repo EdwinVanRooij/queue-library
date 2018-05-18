@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module external.linked.project.id="queue-library:main" external.linked.project.path="/mnt/data/Projects/queue-library" external.root.project.path="$MODULE_DIR$/../../.." external.system.id="GRADLE" external.system.module.group="" external.system.module.type="sourceSet" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
+<module external.linked.project.id="queue-library:main" external.linked.project.path="$MODULE_DIR$/../../.." external.root.project.path="$MODULE_DIR$/../../.." external.system.id="GRADLE" external.system.module.group="" external.system.module.type="sourceSet" external.system.module.version="unspecified" type="JAVA_MODULE" version="4">
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
-    <output url="file:///mnt/data/Projects/queue-library/out/production/classes" />
+    <output url="file://$MODULE_DIR$/../../../out/production/classes" />
     <exclude-output />
-    <content url="file:///mnt/data/Projects/queue-library/src">
-      <sourceFolder url="file:///mnt/data/Projects/queue-library/src" isTestSource="false" />
+    <content url="file://$MODULE_DIR$/../../../src">
+      <sourceFolder url="file://$MODULE_DIR$/../../../src" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Gradle: com.google.code.gson:gson:2.8.2" level="project" />
+    <orderEntry type="library" name="Gradle: org.json:json:20180130" level="project" />
     <orderEntry type="library" name="Gradle: com.rabbitmq:amqp-client:4.2.0" level="project" />
     <orderEntry type="library" name="Gradle: org.slf4j:slf4j-simple:1.7.25" level="project" />
     <orderEntry type="library" name="Gradle: org.slf4j:slf4j-api:1.7.25" level="project" />
+    <orderEntry type="library" name="Gradle: commons-io:commons-io:1.3.2" level="project" />
   </component>
 </module>
