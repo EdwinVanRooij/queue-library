@@ -1,4 +1,4 @@
-package com.nonexistentcompany;
+package com.nonexistentcompany.geocoding;
 
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;

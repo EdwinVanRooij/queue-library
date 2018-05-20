@@ -1,15 +1,18 @@
-package com.nonexistentcompany;
+package com.nonexistentcompany.queue;
 
+import com.nonexistentcompany.domain.RichRoute;
+import com.nonexistentcompany.domain.Route;
 import com.google.gson.Gson;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.concurrent.TimeoutException;
 
 public class RouteProducer {
+
+    private Gson g = new Gson();
 
 //    /**
 //     * @param distance in meters
@@ -31,15 +34,21 @@ public class RouteProducer {
 //        }
 //    }
 
-    public void sendForeignRouteToCountry(ForeignRoute foreignRoute) throws IOException, TimeoutException {
-        Gson g = new Gson();
-        String json = g.toJson(foreignRoute.getLocationList());
+    /**
+     * Sends a foreign route to its respective country
+     *
+     * @param foreignRoute contains a country code and a list of locations.
+     */
+    public void sendForeignRouteToCountry(Route foreignRoute) throws IOException, TimeoutException {
+        String json = g.toJson(foreignRoute);
 
-        produceForeignRoute(foreignRoute.getCountryCode(), json);
+        produceMessage("foreign_route_" + foreignRoute.getDrivenInCountry(), json);
     }
 
-    private void produceForeignRoute(String countryCode, String json) throws IOException, TimeoutException {
-        produceMessage("foreign_route_" + countryCode, json);
+    public void sendRichRouteToCountry(RichRoute richRoute) throws IOException, TimeoutException {
+        String json = g.toJson(richRoute);
+
+        produceMessage("rich_route_" + richRoute.getOriginCountry(), json);
     }
 
     private void produceMessage(String queueName, String json) throws IOException, TimeoutException {

@@ -1,4 +1,4 @@
-package com.nonexistentcompany;
+package com.nonexistentcompany.domain;
 
 public class Rate {
 

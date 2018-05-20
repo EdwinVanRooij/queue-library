@@ -1,17 +1,17 @@
-package com.nonexistentcompany;
+package com.nonexistentcompany.domain;
 
-public class Location implements Comparable<Location> {
+public class EULocation implements Comparable<EULocation> {
     private double lat;
     private double lon;
     private long unixTimestamp;
 
-    public Location(double lat, double lon) {
+    public EULocation(double lat, double lon) {
         this.lat = lat;
         this.lon = lon;
         this.unixTimestamp = System.currentTimeMillis() / 1000L; // generate current timestamp
     }
 
-    public Location(double lat, double lon, long unixTimestamp) {
+    public EULocation(double lat, double lon, long unixTimestamp) {
 
         this.lat = lat;
         this.lon = lon;
@@ -43,7 +43,7 @@ public class Location implements Comparable<Location> {
     }
 
     @Override
-    public int compareTo(Location o) {
+    public int compareTo(EULocation o) {
         return Long.compare(this.unixTimestamp, o.unixTimestamp);
     }
 

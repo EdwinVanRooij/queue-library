@@ -3,8 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/1021689892/Projects-queue-library.iml" filepath="$PROJECT_DIR$/.idea/modules/1021689892/Projects-queue-library.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1021689892/queue-library_main.iml" filepath="$PROJECT_DIR$/.idea/modules/1021689892/queue-library_main.iml" group="queue-library" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1021689892/queue-library_test.iml" filepath="$PROJECT_DIR$/.idea/modules/1021689892/queue-library_test.iml" group="queue-library" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/queue-library_main.iml" filepath="$PROJECT_DIR$/.idea/modules/queue-library_main.iml" group="queue-library" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/queue-library_test.iml" filepath="$PROJECT_DIR$/.idea/modules/queue-library_test.iml" group="queue-library" />
     </modules>
   </component>
 </project>

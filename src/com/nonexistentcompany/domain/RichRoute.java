@@ -1,22 +1,42 @@
-package com.nonexistentcompany;
+package com.nonexistentcompany.domain;
 
 import java.util.List;
 
-public class Route {
+public class RichRoute {
+
+    private String originCountry; // defines the country where the car is registered
+    private String drivenInCountry; // defines the country in which the car has driven
+
     private int distance;
     private int price;
     private int vat;
     private String license;
-    private String country;
     private List<Rate> rates;
 
-    public Route(int distance, int price, int vat, String license, String country, List<Rate> rates) {
+    public RichRoute(String originCountry, String drivenInCountry, int distance, int price, int vat, String license, String country, List<Rate> rates) {
+        this.originCountry = originCountry;
+        this.drivenInCountry = drivenInCountry;
         this.distance = distance;
         this.price = price;
         this.vat = vat;
         this.license = license;
-        this.country = country;
         this.rates = rates;
+    }
+
+    public String getOriginCountry() {
+        return originCountry;
+    }
+
+    public void setOriginCountry(String originCountry) {
+        this.originCountry = originCountry;
+    }
+
+    public String getDrivenInCountry() {
+        return drivenInCountry;
+    }
+
+    public void setDrivenInCountry(String drivenInCountry) {
+        this.drivenInCountry = drivenInCountry;
     }
 
     public int getDistance() {
@@ -49,14 +69,6 @@ public class Route {
 
     public void setLicense(String license) {
         this.license = license;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
     }
 
     public List<Rate> getRates() {
