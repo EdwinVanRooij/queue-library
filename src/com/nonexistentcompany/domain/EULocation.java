@@ -12,7 +12,6 @@ public class EULocation implements Comparable<EULocation> {
     }
 
     public EULocation(double lat, double lon, long unixTimestamp) {
-
         this.lat = lat;
         this.lon = lon;
         this.unixTimestamp = unixTimestamp;
