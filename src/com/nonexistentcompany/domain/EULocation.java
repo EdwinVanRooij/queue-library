@@ -4,14 +4,29 @@ public class EULocation implements Comparable<EULocation> {
     private double lat;
     private double lon;
     private long unixTimestamp;
+    private String license;
+//
+//    public EULocation(double lat, double lon) {
+//        this.lat = lat;
+//        this.lon = lon;
+//        this.unixTimestamp = System.currentTimeMillis() / 1000L; // generate current timestamp
+//    }
 
-    public EULocation(double lat, double lon) {
+    public EULocation(String license, double lat, double lon) {
+        this.license = license;
         this.lat = lat;
         this.lon = lon;
         this.unixTimestamp = System.currentTimeMillis() / 1000L; // generate current timestamp
     }
 
-    public EULocation(double lat, double lon, long unixTimestamp) {
+//    public EULocation(double lat, double lon, long unixTimestamp) {
+//        this.lat = lat;
+//        this.lon = lon;
+//        this.unixTimestamp = unixTimestamp;
+//    }
+
+    public EULocation(String license, double lat, double lon, long unixTimestamp) {
+        this.license = license;
         this.lat = lat;
         this.lon = lon;
         this.unixTimestamp = unixTimestamp;
@@ -39,6 +54,14 @@ public class EULocation implements Comparable<EULocation> {
 
     public void setUnixTimestamp(long unixTimestamp) {
         this.unixTimestamp = unixTimestamp;
+    }
+
+    public String getLicense() {
+        return license;
+    }
+
+    public void setLicense(String license) {
+        this.license = license;
     }
 
     @Override
