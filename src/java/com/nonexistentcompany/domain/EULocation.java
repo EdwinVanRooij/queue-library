@@ -12,6 +12,12 @@ public class EULocation implements Comparable<EULocation> {
 //        this.unixTimestamp = System.currentTimeMillis() / 1000L; // generate current timestamp
 //    }
 
+    public EULocation(double lat, double lon, long timestamp) {
+        this.lat = lat;
+        this.lon = lon;
+        this.unixTimestamp = timestamp;
+    }
+
     public EULocation(String license, double lat, double lon) {
         this.license = license;
         this.lat = lat;
