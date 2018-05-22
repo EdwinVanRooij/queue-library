@@ -5,10 +5,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by rsanchez on 18/03/15.
@@ -18,11 +21,14 @@ public class ReverseGeocodingCountry {
     private JSONArray countriesJsonArray;
 
     public ReverseGeocodingCountry() {
-        String jsonLocation = "countries_geo_code.json";
-        try (InputStream countriesInputStream = new FileInputStream(jsonLocation)) {
-            System.out.println("Working Directory = " + System.getProperty("user.dir"));
+        System.out.println("Working Directory = " +
+                System.getProperty("user.dir"));
 
-            String jsonCountriesAsString = IOUtils.toString(countriesInputStream);
+
+//        Thread.currentThread().getContextClassLoader().getResourceAsStream("json/menu.json");
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("countries_geo_code.json")) {
+
+            String jsonCountriesAsString = IOUtils.toString(inputStream);
             countriesJsonArray = new JSONArray(jsonCountriesAsString);
         } catch (Exception e) {
             e.printStackTrace();
