@@ -41,6 +41,9 @@ jar {
     manifest {
         attributes 'Main-Class': 'com.nonexistentcompany.Main'
     }
+    from('src') {
+        include 'countries_geo_code.json'
+    }
 }
 
 // Define the main class for the application
