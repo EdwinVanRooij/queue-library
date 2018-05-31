@@ -9,11 +9,21 @@ public class Route {
     private String originCountry; // defines the country where the car is registered
     private String drivenInCountry; // defines the country in which the car has driven
     private List<EULocation> locationList;
+    private String licensePlate;
 
-    public Route(String originCountry, String drivenInCountry) {
+    public Route(String originCountry, String drivenInCountry, String licensePlate) {
         this.originCountry = originCountry;
         this.drivenInCountry = drivenInCountry;
         this.locationList = new ArrayList<>();
+        this.licensePlate = licensePlate;
+    }
+
+    public String getLicensePlate() {
+        return licensePlate;
+    }
+
+    public void setLicensePlate(String licensePlate) {
+        this.licensePlate = licensePlate;
     }
 
     public String getOriginCountry() {
