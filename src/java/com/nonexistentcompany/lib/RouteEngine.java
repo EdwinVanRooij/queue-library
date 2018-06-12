@@ -108,19 +108,34 @@ public class RouteEngine {
 
         Map<String, ForeignRoute> result = new HashMap<>();
 
-        if (foreignRouteAT.getTrips().size() != 0 && !countryCode.equals("AT")) {
+//        if (foreignRouteAT.getTrips().size() != 0 && !countryCode.equals("AT")) {
+//            result.put("AT", foreignRouteAT);
+//        }
+//        if (foreignRouteBE.getTrips().size() != 0 && !countryCode.equals("BE")) {
+//            result.put("BE", foreignRouteBE);
+//        }
+//        if (foreignRouteNL.getTrips().size() != 0 && !countryCode.equals("NL")) {
+//            result.put("NL", foreignRouteNL);
+//        }
+//        if (foreignRouteLU.getTrips().size() != 0 && !countryCode.equals("LU")) {
+//            result.put("LU", foreignRouteLU);
+//        }
+//        if (foreignRouteDE.getTrips().size() != 0 && !countryCode.equals("DE")) {
+//            result.put("DE", foreignRouteDE);
+//        }
+        if (foreignRouteAT.getTrips().size() != 0) {
             result.put("AT", foreignRouteAT);
         }
-        if (foreignRouteBE.getTrips().size() != 0 && !countryCode.equals("BE")) {
+        if (foreignRouteBE.getTrips().size() != 0) {
             result.put("BE", foreignRouteBE);
         }
-        if (foreignRouteNL.getTrips().size() != 0 && !countryCode.equals("NL")) {
+        if (foreignRouteNL.getTrips().size() != 0) {
             result.put("NL", foreignRouteNL);
         }
-        if (foreignRouteLU.getTrips().size() != 0 && !countryCode.equals("LU")) {
+        if (foreignRouteLU.getTrips().size() != 0) {
             result.put("LU", foreignRouteLU);
         }
-        if (foreignRouteDE.getTrips().size() != 0 && !countryCode.equals("DE")) {
+        if (foreignRouteDE.getTrips().size() != 0) {
             result.put("DE", foreignRouteDE);
         }
 
