@@ -41,26 +41,26 @@ public class Util {
         locations.add(new EULocation(48.541396, 12.380761)); // Germany
         locations.add(new EULocation(48.720562, 11.991066)); // Germany
         locations.add(new EULocation(48.770838, 10.898228)); // Germany
-        locations.add(new EULocation(49.121361, 9.627485 ));// Germany
-        locations.add(new EULocation(49.425362, 8.111066 ));// Germany
-        locations.add(new EULocation(49.623331, 6.967397 ));// Germany
+        locations.add(new EULocation(49.121361, 9.627485)); // Germany
+        locations.add(new EULocation(49.425362, 8.111066)); // Germany
+        locations.add(new EULocation(49.623331, 6.967397)); // Germany
 
-        locations.add(new EULocation(49.609224, 6.294690 ));// Luxembourg
-        locations.add(new EULocation(49.643691, 6.181335 ));// Luxembourg
-        locations.add(new EULocation(49.682623, 6.079546 ));// Luxembourg
+        locations.add(new EULocation(49.609224, 6.294690)); // Luxembourg
+        locations.add(new EULocation(49.643691, 6.181335)); // Luxembourg
+        locations.add(new EULocation(49.682623, 6.079546)); // Luxembourg
 
-        locations.add(new EULocation(49.915563, 5.547471 ));// Belgium
-        locations.add(new EULocation(50.059839, 5.427176 ));// Belgium
-        locations.add(new EULocation(50.168133, 5.350835 ));// Belgium
-        locations.add(new EULocation(50.338236, 5.327701 ));// Belgium
-        locations.add(new EULocation(50.609139, 5.526651 ));// Belgium
-        locations.add(new EULocation(50.726439, 5.626126 ));// Belgium
+        locations.add(new EULocation(49.915563, 5.547471)); // Belgium
+        locations.add(new EULocation(50.059839, 5.427176)); // Belgium
+        locations.add(new EULocation(50.168133, 5.350835)); // Belgium
+        locations.add(new EULocation(50.338236, 5.327701)); // Belgium
+        locations.add(new EULocation(50.609139, 5.526651)); // Belgium
+        locations.add(new EULocation(50.726439, 5.626126)); // Belgium
 
-        locations.add(new EULocation(50.833220, 5.753361 ));// Netherlands
-        locations.add(new EULocation(50.898922, 5.912984 ));// Netherlands
+        locations.add(new EULocation(50.833220, 5.753361)); // Netherlands
+        locations.add(new EULocation(50.898922, 5.912984)); // Netherlands
 
-        locations.add(new EULocation(51.019863, 6.204468 ));// Germany
-        locations.add(new EULocation(51.095473, 6.329390 ));// Germany
+        locations.add(new EULocation(51.019863, 6.204468)); // Germany
+        locations.add(new EULocation(51.095473, 6.329390)); // Germany
 
         return locations;
     }

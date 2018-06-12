@@ -97,6 +97,8 @@ public class RouteEngine {
 
                 // Clear current trip
                 trip = new ArrayList<>();
+
+                trip.add(l);
             }
         }
 
