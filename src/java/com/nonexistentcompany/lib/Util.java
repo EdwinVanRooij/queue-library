@@ -25,6 +25,61 @@ public class Util {
     /**
      * This method simulates a route:
      * Germany --> Netherlands
+     * Netherlands --> Belgium
+     * Belgium --> Luxembourg
+     * Luxembourg --> Austria
+     * Austria --> Germany
+     */
+    public static List<EULocation> simulateAllCountryTrip() throws InterruptedException {
+        List<EULocation> locations = new ArrayList<>();
+
+        // Austria
+        47.141401, 14.166647 // Austria
+        47.481654, 14.108971 // Austria
+        47.761446, 13.990368 // Austria
+        48.085037, 13.609145 // Austria
+
+        48.541396, 12.380761 // Germany
+        48.720562, 11.991066 // G
+        48.770838, 10.898228 // G
+        49.121361, 9.627485 // G
+        49.425362, 8.111066 // G
+        49.623331, 6.967397 // G
+
+        49.609224, 6.294690 // Luxembourg
+        49.643691, 6.181335 // L
+        49.682623, 6.079546 // L
+
+        49.915563, 5.547471 // Belgium
+
+        locations.add(new EULocation(51.935511, 7.589731)); // Germany, munster
+        locations.add(new EULocation(51.901508, 7.448841)); // Germany
+        locations.add(new EULocation(51.876933, 7.145619)); // Germany
+        locations.add(new EULocation(51.888277, 6.912844)); // Germany
+
+        locations.add(new EULocation(51.956279, 6.652502)); // Netherlands
+        locations.add(new EULocation(51.994013, 6.575931)); // Netherlands
+        locations.add(new EULocation(52.014754, 6.456480)); // Netherlands
+        locations.add(new EULocation(52.010983, 6.309464)); // Netherlands
+        locations.add(new EULocation(51.948728, 6.248207)); // Netherlands
+
+        // Belgium
+
+        // Luxembourg
+
+        // Austria
+
+        locations.add(new EULocation(51.252449, 6.208390)); // Germany
+        locations.add(new EULocation(51.208054, 6.379371)); // Germany
+        locations.add(new EULocation(51.191274, 6.578294)); // Germany
+        locations.add(new EULocation(51.208054, 6.700708)); // Germany
+        locations.add(new EULocation(51.255961, 6.861376)); // Germany
+
+        return locations;
+    }
+    /**
+     * This method simulates a route:
+     * Germany --> Netherlands
      * Netherlands --> Germany
      * Germany --> Netherlands
      * Netherlands --> Germany
