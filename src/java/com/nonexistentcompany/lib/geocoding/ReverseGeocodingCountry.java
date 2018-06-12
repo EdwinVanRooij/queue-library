@@ -1,17 +1,13 @@
-package com.nonexistentcompany.geocoding;
+package com.nonexistentcompany.lib.geocoding;
 
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Created by rsanchez on 18/03/15.

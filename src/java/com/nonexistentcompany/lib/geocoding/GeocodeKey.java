@@ -1,4 +1,4 @@
-package com.nonexistentcompany.geocoding;
+package com.nonexistentcompany.lib.geocoding;
 
 /**
  * Created by rsanchez on 20/03/15.

@@ -1,7 +1,8 @@
-package com.nonexistentcompany.queue;
+package com.nonexistentcompany.lib.queue;
 
-import com.nonexistentcompany.domain.RichRoute;
-import com.nonexistentcompany.domain.Route;
+import com.nonexistentcompany.lib.Const;
+import com.nonexistentcompany.lib.domain.RichRoute;
+import com.nonexistentcompany.lib.domain.ForeignRoute;
 import com.google.gson.Gson;
 import com.rabbitmq.client.*;
 
@@ -24,7 +25,7 @@ public class RouteConsumer {
      * @return Route
      */
     public void consumeRoutes(RouteHandler handler) throws IOException, TimeoutException {
-        consumeRoute("foreign_route_" + countryCode, handler);
+        consumeForeignRoute("foreign_route_" + countryCode, handler);
     }
 
     public void consumeRichRoutes(RichRouteHandler handler) throws IOException, TimeoutException {
@@ -33,11 +34,13 @@ public class RouteConsumer {
 
     private void consumeRichRoute(String queueName, RichRouteHandler handler) throws IOException, TimeoutException {
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("localhost");
+        factory.setHost(Const.IP);
+        factory.setUsername(Const.USERNAME);
+        factory.setPassword(Const.PASSWORD);
         Connection connection = factory.newConnection();
         Channel channel = connection.createChannel();
 
-        channel.queueDeclare(queueName, false, false, false, null);
+        channel.queueDeclare(queueName, true, false, false, null);
         System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
 
         Consumer consumer = new DefaultConsumer(channel) {
@@ -53,13 +56,15 @@ public class RouteConsumer {
         channel.basicConsume(queueName, true, consumer);
     }
 
-    private void consumeRoute(String queueName, RouteHandler handler) throws IOException, TimeoutException {
+    private void consumeForeignRoute(String queueName, RouteHandler handler) throws IOException, TimeoutException {
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("localhost");
+        factory.setHost(Const.IP);
+        factory.setUsername(Const.USERNAME);
+        factory.setPassword(Const.PASSWORD);
         Connection connection = factory.newConnection();
         Channel channel = connection.createChannel();
 
-        channel.queueDeclare(queueName, false, false, false, null);
+        channel.queueDeclare(queueName, true, false, false, null);
         System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
 
         Consumer consumer = new DefaultConsumer(channel) {
@@ -70,7 +75,7 @@ public class RouteConsumer {
                 System.out.println(" [x] Received '" + message + "'");
 
                 try {
-                    handler.handleRoute(g.fromJson(message, Route.class));
+                    handler.handleRoute(g.fromJson(message, ForeignRoute.class));
                 } catch (TimeoutException e) {
                     e.printStackTrace();
                 }

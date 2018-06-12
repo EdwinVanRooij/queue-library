@@ -1,16 +1,9 @@
-package com.nonexistentcompany.domain;
+package com.nonexistentcompany.lib.domain;
 
 public class EULocation implements Comparable<EULocation> {
     private double lat;
     private double lon;
     private long unixTimestamp;
-    private String license;
-//
-//    public EULocation(double lat, double lon) {
-//        this.lat = lat;
-//        this.lon = lon;
-//        this.unixTimestamp = System.currentTimeMillis() / 1000L; // generate current timestamp
-//    }
 
     public EULocation(double lat, double lon, long timestamp) {
         this.lat = lat;
@@ -18,24 +11,10 @@ public class EULocation implements Comparable<EULocation> {
         this.unixTimestamp = timestamp;
     }
 
-    public EULocation(String license, double lat, double lon) {
-        this.license = license;
+    public EULocation(double lat, double lon) {
         this.lat = lat;
         this.lon = lon;
         this.unixTimestamp = System.currentTimeMillis() / 1000L; // generate current timestamp
-    }
-
-//    public EULocation(double lat, double lon, long unixTimestamp) {
-//        this.lat = lat;
-//        this.lon = lon;
-//        this.unixTimestamp = unixTimestamp;
-//    }
-
-    public EULocation(String license, double lat, double lon, long unixTimestamp) {
-        this.license = license;
-        this.lat = lat;
-        this.lon = lon;
-        this.unixTimestamp = unixTimestamp;
     }
 
     public double getLat() {
@@ -62,14 +41,6 @@ public class EULocation implements Comparable<EULocation> {
         this.unixTimestamp = unixTimestamp;
     }
 
-    public String getLicense() {
-        return license;
-    }
-
-    public void setLicense(String license) {
-        this.license = license;
-    }
-
     @Override
     public int compareTo(EULocation o) {
         return Long.compare(this.unixTimestamp, o.unixTimestamp);
@@ -77,7 +48,7 @@ public class EULocation implements Comparable<EULocation> {
 
     @Override
     public String toString() {
-        return "Location{" +
+        return "EULocation{" +
                 "lat=" + lat +
                 ", lon=" + lon +
                 ", unixTimestamp=" + unixTimestamp +
