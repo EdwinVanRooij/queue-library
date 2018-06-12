@@ -29,9 +29,9 @@ public class ReceiveDriven {
                 log("Got a new route from %s!", route.getOrigin());
                 log("Route details: '%s'", route);
 
-                // Transform route into route with rates
-                RichRoute richRoute = routeTransformer.generateRichRoute(route);
-                engine.sendRichRouteToCountry(richRoute, route.getOrigin());
+//                // Transform route into route with rates
+//                RichRoute richRoute = routeTransformer.generateRichRoute(route);
+//                engine.sendRichRouteToCountry(richRoute, route.getOrigin());
             }
         };
 

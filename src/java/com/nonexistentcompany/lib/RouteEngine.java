@@ -18,6 +18,7 @@ import java.util.concurrent.TimeoutException;
 import static com.nonexistentcompany.lib.Util.log;
 
 
+@SuppressWarnings("Java8MapApi")
 public class RouteEngine {
 
     private String countryCode;
@@ -66,10 +67,9 @@ public class RouteEngine {
         // Sort the locations
         Collections.sort(locationList);
 
-        Map<String, ForeignRoute> foreignRouteMap = new HashMap<>();
+        Map<String, List<EULocation>> foreignRouteMap = new HashMap<>();
 
         String lastCountryCode = "";
-        List<EULocation> currentRoute = new ArrayList<>();
 
         for (EULocation l : locationList) {
             String countryCode = getCountryCodeByLocation(l);
@@ -87,12 +87,7 @@ public class RouteEngine {
             if (lastCountryCode.equals(countryCode)) {
                 // Make sure the foreignRoute is initialized
                 if (foreignRouteMap.get(countryCode) == null) {
-                    // todo; add real data; dummy for now
-                    List<List<EULocation>> trips = new ArrayList<>();
-                    List<EULocation> trip = new ArrayList<>();
-                    trip.add(new EULocation(2.4343, 2.2233));
-                    trips.add(trip);
-                    foreignRouteMap.put(countryCode, new ForeignRoute(this.countryCode, trips, id));
+                    foreignRouteMap.put(countryCode, new ArrayList<>());
                 }
 
 //                foreignRouteMap.get(countryCode).addTrip(currentRoute);
@@ -113,8 +108,7 @@ public class RouteEngine {
         consumer.consumeRoutes(handler);
     }
 
-    public void sendRoutesToTheirCountry(Map<String, ForeignRoute> foreignLocations) throws
-            IOException, TimeoutException {
+    public void sendRoutesToTheirCountry(Map<String, ForeignRoute> foreignLocations) throws IOException, TimeoutException {
         for (ForeignRoute r : foreignLocations.values()) {
             log("Sending routes");
 
@@ -129,7 +123,7 @@ public class RouteEngine {
     }
 
     public void sendRichRouteToCountry(RichRoute richRoute, String toCountry) throws IOException, TimeoutException {
-        producer.sendRichRouteToCountry(richRoute);
+        producer.sendRichRouteToCountry(richRoute, toCountry);
     }
 
     public void listenForRichRoutes(RichRouteHandler richRouteHandler) throws IOException, TimeoutException {

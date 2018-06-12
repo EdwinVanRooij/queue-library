@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeoutException;
 
+import static com.nonexistentcompany.lib.Util.log;
+
 
 public class Drive {
 
@@ -25,7 +27,19 @@ public class Drive {
         // Once Henk is done driving, start calculating which points were in Germany
         Map<String, ForeignRoute> foreignLocations = engine.determineForeignRoutes(locationList, id);
 
+        log("================================================");
+        log("foreignLocations");
+        log("================================================");
+        for (Map.Entry<String, ForeignRoute> entry : foreignLocations.entrySet()) {
+            log("\t------------------------------");
+            log("\tCountry: %s", entry.getKey());
+            log("\t------------------------------");
+
+            for (List<EULocation> locations : entry.getValue().getTrips()) {
+                log("\t\tA trip with '%s' locations in it.", locations.size());
+            }
+        }
         // Send the routes to their country
-        engine.sendRoutesToTheirCountry(foreignLocations);
+//        engine.sendRoutesToTheirCountry(foreignLocations);
     }
 }
