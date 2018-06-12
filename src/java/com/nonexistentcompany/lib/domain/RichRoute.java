@@ -4,17 +4,27 @@ import java.util.List;
 
 public class RichRoute {
     private String id;
+    private String origin;
     private Double price;
     private int distance;
     private int vat;
     private List<RichRouteDetail> details;
 
-    public RichRoute(String id, Double price, int distance, int vat, List<RichRouteDetail> details) {
+    public RichRoute(String id, String origin, Double price, int distance, int vat, List<RichRouteDetail> details) {
         this.id = id;
+        this.origin = origin;
         this.price = price;
         this.distance = distance;
         this.vat = vat;
         this.details = details;
+    }
+
+    public String getOrigin() {
+        return origin;
+    }
+
+    public void setOrigin(String origin) {
+        this.origin = origin;
     }
 
     public String getId() {

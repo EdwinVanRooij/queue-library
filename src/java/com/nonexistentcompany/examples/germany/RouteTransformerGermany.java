@@ -11,8 +11,8 @@ import java.util.List;
 public class RouteTransformerGermany extends RouteTransformer {
 
     @Override
-    public RichRoute generateRichRoute(ForeignRoute route) {
+    public RichRoute generateRichRoute(ForeignRoute route, String origin) {
         List<RichRouteDetail> details = new ArrayList<>();
-        return new RichRoute(route.getId(), 20.0, 10000, 21, details);
+        return new RichRoute(route.getId(), origin, 20.0, 10000, 21, details);
     }
 }
