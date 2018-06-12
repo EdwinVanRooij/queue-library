@@ -16,18 +16,13 @@ import static com.nonexistentcompany.lib.Util.log;
 public class RouteProducer {
 
     private Gson g = new Gson();
-    private String drivenInCountry;
-
-    public RouteProducer(String drivenInCountry) {
-        this.drivenInCountry = drivenInCountry;
-    }
 
     /**
      * Sends a foreign route to its respective country
      *
      * @param foreignRoute contains a country code and a list of locations.
      */
-    public void sendForeignRouteToCountry(ForeignRoute foreignRoute) throws IOException, TimeoutException {
+    public void sendForeignRouteToCountry(ForeignRoute foreignRoute, String drivenInCountry) throws IOException, TimeoutException {
         String json = g.toJson(foreignRoute);
 
         produceMessage("foreign_route_" + drivenInCountry, json);
@@ -47,7 +42,7 @@ public class RouteProducer {
         Connection connection = factory.newConnection();
         Channel channel = connection.createChannel();
 
-        channel.queueDeclare(queueName, false, false, false, null);
+        channel.queueDeclare(queueName, true, false, false, null);
         channel.basicPublish("", queueName, null, json.getBytes());
         log(" [x] Sent '" + json + "'");
         System.out.println();

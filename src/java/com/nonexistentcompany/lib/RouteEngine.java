@@ -31,7 +31,7 @@ public class RouteEngine {
     public RouteEngine(String countryCode) {
         this.countryCode = countryCode;
 
-        producer = new RouteProducer(countryCode);
+        producer = new RouteProducer();
         consumer = new RouteConsumer(countryCode);
 
         reverseGeocodingCountry = new ReverseGeocodingCountry();
@@ -139,16 +139,12 @@ public class RouteEngine {
     }
 
     public void sendRoutesToTheirCountry(Map<String, ForeignRoute> foreignLocations) throws IOException, TimeoutException {
-        for (ForeignRoute r : foreignLocations.values()) {
-            log("Sending routes");
-
-            // Show the locations we're sending
-//            for (EULocation l : r.getTrips()) {
-//                log("Location '%s', '%s'", l.getLat(), l.getLon());
-//            }
+        for (Map.Entry<String, ForeignRoute> entry : foreignLocations.entrySet()) {
+            log("Sending route driven in '%s'",
+                    entry.getValue());
 
             // Actually send the routes
-            producer.sendForeignRouteToCountry(r);
+            producer.sendForeignRouteToCountry(entry.getValue(), entry.getKey());
         }
     }
 

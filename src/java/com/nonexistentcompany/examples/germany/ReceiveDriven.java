@@ -45,6 +45,7 @@ public class ReceiveDriven {
             public void handleRichRoute(RichRoute richRoute) {
                 log("Got a new RichRoute from %s!", "idk");
                 log("RichRoute details: '%s'", "idk");
+                log(richRoute.toString());
 //                System.out.println(String.format("Received rich route from '%s'. We should be '%s'",
 //                        richRoute.getDrivenInCountry(),
 //                        richRoute.getOriginCountry()));

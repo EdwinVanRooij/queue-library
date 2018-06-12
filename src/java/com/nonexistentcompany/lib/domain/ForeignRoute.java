@@ -3,11 +3,12 @@ package com.nonexistentcompany.lib.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class ForeignRoute {
 
     private String id;
-    private String vehicleWeight; // must be filled in, be it dummy
+    private int vehicleWeight; // must be filled in, even if it's randomly generated
     private List<List<EULocation>> trips;
     private String origin; // CountryCode that defines the country where the car is registered
 
@@ -15,6 +16,7 @@ public class ForeignRoute {
         this.origin = origin;
         this.trips = trips;
         this.id = id;
+        this.vehicleWeight = 1000 + new Random().nextInt(1000);
     }
 
     public String getOrigin() {

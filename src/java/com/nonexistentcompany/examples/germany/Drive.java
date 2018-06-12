@@ -22,7 +22,6 @@ public class Drive {
         String id = "XXX-029";
 
         // Henk starts driving
-//        List<EULocation> locationList = Util.simulateMultiTrip();
         List<EULocation> locationList = Util.simulateAllCountryTrip();
 
         // Once Henk is done driving, start calculating which points were in Germany
@@ -41,6 +40,6 @@ public class Drive {
             }
         }
         // Send the routes to their country
-//        engine.sendRoutesToTheirCountry(foreignLocations);
+        engine.sendRoutesToTheirCountry(foreignLocations);
     }
 }
