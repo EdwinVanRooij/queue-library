@@ -8,7 +8,7 @@ import com.nonexistentcompany.lib.domain.RichRouteDetail;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RouteTransformerGermany extends RouteTransformer {
+public class RouteTransformerGermanyExample extends RouteTransformer {
 
     @Override
     public RichRoute generateRichRoute(ForeignRoute route, String ownCountry) {

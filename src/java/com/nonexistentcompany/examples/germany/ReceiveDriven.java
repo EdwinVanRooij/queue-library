@@ -20,7 +20,7 @@ public class ReceiveDriven {
 
     public static void main(String[] args) throws IOException, TimeoutException {
         // region Listen for cars driven
-        routeTransformer = new RouteTransformerGermany();
+        routeTransformer = new RouteTransformerGermanyExample();
 
         // Define a handler for incoming routes
         RouteHandler routeHandler = new RouteHandler() {

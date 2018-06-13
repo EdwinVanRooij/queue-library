@@ -1,5 +1,6 @@
 package com.nonexistentcompany.lib.domain;
 
+import java.util.Calendar;
 import java.util.List;
 
 public class RichRoute {
@@ -17,6 +18,38 @@ public class RichRoute {
         this.distance = distance;
         this.vat = vat;
         this.details = details;
+    }
+
+    public Calendar getStartDateCalendar() {
+        Calendar c = Calendar.getInstance();
+        c.setTimeInMillis(getStartDateTimestamp());
+        return c;
+    }
+
+    public Calendar getEndDateCalendar() {
+        Calendar c = Calendar.getInstance();
+        c.setTimeInMillis(getEndDateTimestamp());
+        return c;
+    }
+
+    public Long getStartDateTimestamp() {
+        Long currentLowest = Long.MAX_VALUE;
+        for (RichRouteDetail detail : details) {
+            if (detail.getStart() < currentLowest) {
+                currentLowest = detail.getStart();
+            }
+        }
+        return currentLowest;
+    }
+
+    public Long getEndDateTimestamp() {
+        Long currentHighest = Long.MIN_VALUE;
+        for (RichRouteDetail detail : details) {
+            if (detail.getEnd() > currentHighest) {
+                currentHighest = detail.getEnd();
+            }
+        }
+        return currentHighest;
     }
 
     public String getOrigin() {
