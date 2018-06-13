@@ -130,7 +130,7 @@ public class RouteEngine {
     }
 
     private String getCountryCodeByLocation(EULocation l) {
-        return reverseGeocodingCountry.getCountry(GeocodeKey.KEY_ISOA2, l.getLat(), l.getLon());
+        return reverseGeocodingCountry.getCountry(GeocodeKey.KEY_ISOA2, l.getLat(), l.getLng());
     }
 
 
@@ -154,5 +154,9 @@ public class RouteEngine {
 
     public void listenForRichRoutes(RichRouteHandler richRouteHandler) throws IOException, TimeoutException {
         consumer.consumeRichRoutes(richRouteHandler);
+    }
+
+    public String getCountry() {
+        return countryCode;
     }
 }

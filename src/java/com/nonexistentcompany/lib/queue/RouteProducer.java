@@ -4,6 +4,7 @@ import com.nonexistentcompany.lib.Const;
 import com.nonexistentcompany.lib.domain.RichRoute;
 import com.nonexistentcompany.lib.domain.ForeignRoute;
 import com.google.gson.Gson;
+import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
@@ -43,7 +44,18 @@ public class RouteProducer {
         Channel channel = connection.createChannel();
 
         channel.queueDeclare(queueName, true, false, false, null);
-        channel.basicPublish("", queueName, null, json.getBytes());
+        channel.basicPublish(
+                "",
+                queueName,
+                new AMQP.BasicProperties()
+                        .builder()
+                        .contentType("application/json")
+                        .contentEncoding("UTF-8")
+                        .deliveryMode(2)
+                        .priority(0)
+                        .build(),
+                json.getBytes()
+        );
         log(" [x] Sent '" + json + "'");
         System.out.println();
 

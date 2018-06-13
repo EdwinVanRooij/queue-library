@@ -30,8 +30,8 @@ public class ReceiveDriven {
                 log("Route details: '%s'", route);
 
 //                // Transform route into route with rates
-//                RichRoute richRoute = routeTransformer.generateRichRoute(route);
-//                engine.sendRichRouteToCountry(richRoute, route.getOrigin());
+                RichRoute richRoute = routeTransformer.generateRichRoute(route, engine.getCountry());
+                engine.sendRichRouteToCountry(richRoute, route.getOrigin());
             }
         };
 
@@ -43,12 +43,7 @@ public class ReceiveDriven {
         RichRouteHandler richRouteHandler = new RichRouteHandler() {
             @Override
             public void handleRichRoute(RichRoute richRoute) {
-                log("Got a new RichRoute from %s!", "idk");
-                log("RichRoute details: '%s'", "idk");
                 log(richRoute.toString());
-//                System.out.println(String.format("Received rich route from '%s'. We should be '%s'",
-//                        richRoute.getDrivenInCountry(),
-//                        richRoute.getOriginCountry()));
             }
         };
 

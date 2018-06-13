@@ -2,19 +2,19 @@ package com.nonexistentcompany.lib.domain;
 
 public class EULocation implements Comparable<EULocation> {
     private double lat;
-    private double lon;
-    private long unixTimestamp;
+    private double lng;
+    private long timestamp;
 
-    public EULocation(double lat, double lon, long timestamp) {
+    public EULocation(double lat, double lng, long timestamp) {
         this.lat = lat;
-        this.lon = lon;
-        this.unixTimestamp = timestamp;
+        this.lng = lng;
+        this.timestamp = timestamp;
     }
 
-    public EULocation(double lat, double lon) {
+    public EULocation(double lat, double lng) {
         this.lat = lat;
-        this.lon = lon;
-        this.unixTimestamp = System.currentTimeMillis() / 1000L; // generate current timestamp
+        this.lng = lng;
+        this.timestamp = System.currentTimeMillis() / 1000L; // generate current timestamp
     }
 
     public double getLat() {
@@ -25,33 +25,33 @@ public class EULocation implements Comparable<EULocation> {
         this.lat = lat;
     }
 
-    public double getLon() {
-        return lon;
+    public double getLng() {
+        return lng;
     }
 
-    public void setLon(double lon) {
-        this.lon = lon;
+    public void setLng(double lng) {
+        this.lng = lng;
     }
 
-    public long getUnixTimestamp() {
-        return unixTimestamp;
+    public long getTimestamp() {
+        return timestamp;
     }
 
-    public void setUnixTimestamp(long unixTimestamp) {
-        this.unixTimestamp = unixTimestamp;
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
     }
 
     @Override
     public int compareTo(EULocation o) {
-        return Long.compare(this.unixTimestamp, o.unixTimestamp);
+        return Long.compare(this.timestamp, o.timestamp);
     }
 
     @Override
     public String toString() {
         return "EULocation{" +
                 "lat=" + lat +
-                ", lon=" + lon +
-                ", unixTimestamp=" + unixTimestamp +
+                ", lng=" + lng +
+                ", timestamp=" + timestamp +
                 '}';
     }
 }
