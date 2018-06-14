@@ -12,6 +12,7 @@ import com.nonexistentcompany.lib.queue.RouteHandler;
 import com.nonexistentcompany.lib.queue.RouteProducer;
 
 import java.io.IOException;
+import java.rmi.server.ExportException;
 import java.util.*;
 import java.util.concurrent.TimeoutException;
 
@@ -38,21 +39,16 @@ public class RouteEngine {
     }
 
 
-    public List<EULocation> determineHomeRoute(List<EULocation> locationList) throws IOException, TimeoutException {
-        // Sort the locations
-        Collections.sort(locationList);
+    public ForeignRoute determineHomeRoute(List<EULocation> locationList) throws Exception {
+        List<String> countries = new ArrayList<>();
+        countries.add(countryCode);
+        Map<String, ForeignRoute> routeMap = determineRoutesForCountries(locationList, "dummy", countries);
 
-        List<EULocation> result = new ArrayList<>();
-
-        for (EULocation l : locationList) {
-            String countryCode = getCountryCodeByLocation(l);
-            if (this.countryCode.equals(countryCode)) {
-                // Location is in own country, ignore
-                result.add(l);
-            }
-
+        if (routeMap.size() > 1) {
+            throw new Exception("Got more than one route in 'determineHomeRoute'. This is obviously not possible. Should consist of only own country's entry.");
         }
-        return result;
+
+        return routeMap.get(countryCode);
     }
 
     public boolean isLocationInOwnCountry(double lat, double lon) {
@@ -69,6 +65,8 @@ public class RouteEngine {
             countryTripList.put(countryCode, new ArrayList<>());
         }
 
+        // todo; fix bug in this method; map is not generated correctly
+
         // Set initial last country code
         String currentCountryCode = getCountryCodeByLocation(locationList.get(0));
 
@@ -76,6 +74,10 @@ public class RouteEngine {
 
         for (EULocation l : locationList) {
             String thisCountryCode = getCountryCodeByLocation(l);
+            if (!countries.contains( thisCountryCode)) {
+                continue;
+            }
+
             if (thisCountryCode.equals(currentCountryCode)) {
                 // We're still in the country, add to this trip
                 trip.add(l);
@@ -105,7 +107,7 @@ public class RouteEngine {
         Map<String, ForeignRoute> result = new HashMap<>();
 
         for (ForeignRoute r : foreignRoutes) {
-            if (r.getTrips().size() != 0 && !countryCode.equals(r.getOrigin())) {
+            if (r.getTrips().size() != 0) {
                 result.put(r.getOrigin(), r);
             }
         }
@@ -117,13 +119,42 @@ public class RouteEngine {
      * Returns a list of foreign routes.
      */
     public Map<String, ForeignRoute> determineForeignRoutes(List<EULocation> locationList, String id) {
-        List<String> countries = new ArrayList<>();
-        countries.add("DE");
-        countries.add("LU");
-        countries.add("NL");
-        countries.add("AT");
-        countries.add("BE");
+        List<String> countries = generateListOfForeignCountries();
+
+        for (String s : countries) {
+            System.out.println(s);
+        }
+
         return determineRoutesForCountries(locationList, id, countries);
+    }
+
+    private List<String> generateListOfForeignCountries() {
+        List<String> result = new ArrayList<>();
+        if (!countryCode.equals("LU")) {
+            System.out.println("Adding LU to foreign routes");
+            result.add("LU");
+        }
+
+        if (!countryCode.equals("DE")) {
+            System.out.println("Adding DE to foreign routes");
+            result.add("DE");
+        }
+
+        if (!countryCode.equals("NL")){
+            System.out.println("Adding NL to foreign routes");
+            result.add("NL");
+        }
+
+        if (!countryCode.equals("AT")){
+            System.out.println("Adding AT to foreign routes");
+            result.add("AT");
+        }
+
+        if (!countryCode.equals("BE")){
+            System.out.println("Adding BE to foreign routes");
+            result.add("BE");
+        }
+        return result;
     }
 
     private String getCountryCodeByLocation(EULocation l) {
