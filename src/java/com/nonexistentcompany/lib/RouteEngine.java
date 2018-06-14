@@ -189,7 +189,7 @@ public class RouteEngine {
 
     public void sendRoutesToTheirCountry(Map<String, ForeignRoute> foreignLocations) throws IOException, TimeoutException {
         for (Map.Entry<String, ForeignRoute> entry : foreignLocations.entrySet()) {
-            log("Sending route driven in '%s'", entry.getKey());
+            log("Sending route driven in '%s', to '%s'", entry.getKey(), entry.getKey());
 
             // Actually send the routes
             producer.sendForeignRouteToCountry(entry.getValue(), entry.getKey());

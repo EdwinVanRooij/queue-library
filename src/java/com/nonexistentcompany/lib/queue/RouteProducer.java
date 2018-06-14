@@ -56,7 +56,7 @@ public class RouteProducer {
                         .build(),
                 json.getBytes()
         );
-        log(" [x] Sent '" + json + "'");
+        log(" [x] Sent '%s' to '%s'", json, queueName);
 
         channel.close();
         connection.close();

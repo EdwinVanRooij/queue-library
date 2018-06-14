@@ -16,7 +16,7 @@ import static com.nonexistentcompany.lib.Util.log;
 
 public class Drive {
 
-    private final static String country = "DE";
+    private final static String country = "LU";
     private static RouteEngine engine = new RouteEngine(country);
 
     public static void main(String[] args) throws InterruptedException, IOException, TimeoutException {
