@@ -12,6 +12,7 @@ import com.nonexistentcompany.lib.queue.RouteHandler;
 import com.nonexistentcompany.lib.queue.RouteProducer;
 
 import java.io.IOException;
+import java.rmi.server.ExportException;
 import java.util.*;
 import java.util.concurrent.TimeoutException;
 
@@ -109,19 +110,16 @@ public class RouteEngine {
         return this.countryCode.equals(countryCode);
     }
 
-    /**
-     * Returns a list of foreign routes.
-     */
-    public Map<String, ForeignRoute> determineForeignRoutes(List<EULocation> locationList, String id) {
+    private Map<String, ForeignRoute> determineRoutesForCountries(List<EULocation> locationList, String id, List<String> countries) {
         // Sort the locations
         Collections.sort(locationList);
 
         Map<String, List<List<EULocation>>> countryTripList = new HashMap<>();
-        countryTripList.put("DE", new ArrayList<>());
-        countryTripList.put("LU", new ArrayList<>());
-        countryTripList.put("NL", new ArrayList<>());
-        countryTripList.put("AT", new ArrayList<>());
-        countryTripList.put("BE", new ArrayList<>());
+        for (String countryCode : countries) {
+            countryTripList.put(countryCode, new ArrayList<>());
+        }
+
+        // todo; fix bug in this method; map is not generated correctly
 
         // Set initial last country code
         String currentCountryCode = getCountryCodeByLocation(locationList.get(0));
@@ -130,6 +128,10 @@ public class RouteEngine {
 
         for (EULocation l : locationList) {
             String thisCountryCode = getCountryCodeByLocation(l);
+            if (!countries.contains( thisCountryCode)) {
+                continue;
+            }
+
             if (thisCountryCode.equals(currentCountryCode)) {
                 // We're still in the country, add to this trip
                 trip.add(l);
@@ -151,30 +153,61 @@ public class RouteEngine {
             }
         }
 
-        ForeignRoute foreignRouteNL = new ForeignRoute(countryCode, countryTripList.get("NL"), id);
-        ForeignRoute foreignRouteDE = new ForeignRoute(countryCode, countryTripList.get("DE"), id);
-        ForeignRoute foreignRouteBE = new ForeignRoute(countryCode, countryTripList.get("BE"), id);
-        ForeignRoute foreignRouteAT = new ForeignRoute(countryCode, countryTripList.get("AT"), id);
-        ForeignRoute foreignRouteLU = new ForeignRoute(countryCode, countryTripList.get("LU"), id);
+        List<ForeignRoute> foreignRoutes = new ArrayList<>();
+        for (String countryCode : countries) {
+            foreignRoutes.add(new ForeignRoute(countryCode, countryTripList.get(countryCode), id));
+        }
 
         Map<String, ForeignRoute> result = new HashMap<>();
 
-        if (foreignRouteAT.getTrips().size() != 0 && !countryCode.equals("AT")) {
-            result.put("AT", foreignRouteAT);
-        }
-        if (foreignRouteBE.getTrips().size() != 0 && !countryCode.equals("BE")) {
-            result.put("BE", foreignRouteBE);
-        }
-        if (foreignRouteNL.getTrips().size() != 0 && !countryCode.equals("NL")) {
-            result.put("NL", foreignRouteNL);
-        }
-        if (foreignRouteLU.getTrips().size() != 0 && !countryCode.equals("LU")) {
-            result.put("LU", foreignRouteLU);
-        }
-        if (foreignRouteDE.getTrips().size() != 0 && !countryCode.equals("DE")) {
-            result.put("DE", foreignRouteDE);
+        for (ForeignRoute r : foreignRoutes) {
+            if (r.getTrips().size() != 0) {
+                result.put(r.getOrigin(), r);
+            }
         }
 
+        return result;
+    }
+
+    /**
+     * Returns a list of foreign routes.
+     */
+    public Map<String, ForeignRoute> determineForeignRoutes(List<EULocation> locationList, String id) {
+        List<String> countries = generateListOfForeignCountries();
+
+        for (String s : countries) {
+            System.out.println(s);
+        }
+
+        return determineRoutesForCountries(locationList, id, countries);
+    }
+
+    private List<String> generateListOfForeignCountries() {
+        List<String> result = new ArrayList<>();
+        if (!countryCode.equals("LU")) {
+            System.out.println("Adding LU to foreign routes");
+            result.add("LU");
+        }
+
+        if (!countryCode.equals("DE")) {
+            System.out.println("Adding DE to foreign routes");
+            result.add("DE");
+        }
+
+        if (!countryCode.equals("NL")){
+            System.out.println("Adding NL to foreign routes");
+            result.add("NL");
+        }
+
+        if (!countryCode.equals("AT")){
+            System.out.println("Adding AT to foreign routes");
+            result.add("AT");
+        }
+
+        if (!countryCode.equals("BE")){
+            System.out.println("Adding BE to foreign routes");
+            result.add("BE");
+        }
         return result;
     }
 
