@@ -57,7 +57,6 @@ public class RouteProducer {
                 json.getBytes()
         );
         log(" [x] Sent '" + json + "'");
-        System.out.println();
 
         channel.close();
         connection.close();

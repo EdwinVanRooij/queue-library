@@ -27,10 +27,21 @@ public class Drive {
         // Once Henk is done driving, start calculating which points were in Germany
         Map<String, ForeignRoute> foreignLocations = engine.determineForeignRoutes(locationList, id);
 
+        Map<String, ForeignRoute> homeLocations = engine.determineHomeRoute(locationList, id);
+
+        visualizeMap(foreignLocations);
+
+        visualizeMap(homeLocations);
+
+        // Send the routes to their country
+//        engine.sendRoutesToTheirCountry(foreignLocations);
+    }
+
+    private static void visualizeMap(Map<String, ForeignRoute> map) {
         log("================================================");
         log("foreignLocations");
         log("================================================");
-        for (Map.Entry<String, ForeignRoute> entry : foreignLocations.entrySet()) {
+        for (Map.Entry<String, ForeignRoute> entry : map.entrySet()) {
             log("\t------------------------------");
             log("\tCountry: %s", entry.getKey());
             log("\t------------------------------");
@@ -39,7 +50,5 @@ public class Drive {
                 log("\t\tA trip with '%s' locations in it.", locations.size());
             }
         }
-        // Send the routes to their country
-        engine.sendRoutesToTheirCountry(foreignLocations);
     }
 }

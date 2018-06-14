@@ -38,20 +38,69 @@ public class RouteEngine {
     }
 
 
-    public List<EULocation> determineHomeRoute(List<EULocation> locationList) throws IOException, TimeoutException {
+    public Map<String, ForeignRoute> determineHomeRoute(List<EULocation> locationList, String id) throws IOException, TimeoutException {
         // Sort the locations
         Collections.sort(locationList);
 
-        List<EULocation> result = new ArrayList<>();
+        Map<String, List<List<EULocation>>> countryTripList = new HashMap<>();
+        countryTripList.put("DE", new ArrayList<>());
+        countryTripList.put("LU", new ArrayList<>());
+        countryTripList.put("NL", new ArrayList<>());
+        countryTripList.put("AT", new ArrayList<>());
+        countryTripList.put("BE", new ArrayList<>());
+
+        // Set initial last country code
+        String currentCountryCode = getCountryCodeByLocation(locationList.get(0));
+
+        List<EULocation> trip = new ArrayList<>();
 
         for (EULocation l : locationList) {
-            String countryCode = getCountryCodeByLocation(l);
-            if (this.countryCode.equals(countryCode)) {
-                // Location is in own country, ignore
-                result.add(l);
-            }
+            String thisCountryCode = getCountryCodeByLocation(l);
+            if (thisCountryCode.equals(currentCountryCode)) {
+                // We're still in the country, add to this trip
+                trip.add(l);
+            } else {
+                // This trip is done. Add the trip to the country's (other) trips
+                List<List<EULocation>> newTrips = countryTripList.get(currentCountryCode);
+                if (trip.size() > 0) {
+                    newTrips.add(trip);
+                }
+                countryTripList.put(currentCountryCode, newTrips);
 
+                // Set new country
+                currentCountryCode = thisCountryCode;
+
+                // Clear current trip
+                trip = new ArrayList<>();
+
+                trip.add(l);
+            }
         }
+
+        ForeignRoute foreignRouteNL = new ForeignRoute(countryCode, countryTripList.get("NL"), id);
+        ForeignRoute foreignRouteDE = new ForeignRoute(countryCode, countryTripList.get("DE"), id);
+        ForeignRoute foreignRouteBE = new ForeignRoute(countryCode, countryTripList.get("BE"), id);
+        ForeignRoute foreignRouteAT = new ForeignRoute(countryCode, countryTripList.get("AT"), id);
+        ForeignRoute foreignRouteLU = new ForeignRoute(countryCode, countryTripList.get("LU"), id);
+
+        Map<String, ForeignRoute> result = new HashMap<>();
+
+        if (foreignRouteAT.getTrips().size() != 0 && countryCode.equals("AT")) {
+            result.put("AT", foreignRouteAT);
+        }
+        if (foreignRouteBE.getTrips().size() != 0 && countryCode.equals("BE")) {
+            result.put("BE", foreignRouteBE);
+        }
+        if (foreignRouteNL.getTrips().size() != 0 && countryCode.equals("NL")) {
+            result.put("NL", foreignRouteNL);
+        }
+        if (foreignRouteLU.getTrips().size() != 0 && countryCode.equals("LU")) {
+            result.put("LU", foreignRouteLU);
+        }
+        if (foreignRouteDE.getTrips().size() != 0 && countryCode.equals("DE")) {
+            result.put("DE", foreignRouteDE);
+        }
+
         return result;
     }
 
@@ -140,8 +189,7 @@ public class RouteEngine {
 
     public void sendRoutesToTheirCountry(Map<String, ForeignRoute> foreignLocations) throws IOException, TimeoutException {
         for (Map.Entry<String, ForeignRoute> entry : foreignLocations.entrySet()) {
-            log("Sending route driven in '%s'",
-                    entry.getValue());
+            log("Sending route driven in '%s'", entry.getKey());
 
             // Actually send the routes
             producer.sendForeignRouteToCountry(entry.getValue(), entry.getKey());
