@@ -60,19 +60,14 @@ public class RouteEngine {
         return this.countryCode.equals(countryCode);
     }
 
-    /**
-     * Returns a list of foreign routes.
-     */
-    public Map<String, ForeignRoute> determineForeignRoutes(List<EULocation> locationList, String id) {
+    private Map<String, ForeignRoute> determineRoutesForCountries(List<EULocation> locationList, String id, List<String> countries) {
         // Sort the locations
         Collections.sort(locationList);
 
         Map<String, List<List<EULocation>>> countryTripList = new HashMap<>();
-        countryTripList.put("DE", new ArrayList<>());
-        countryTripList.put("LU", new ArrayList<>());
-        countryTripList.put("NL", new ArrayList<>());
-        countryTripList.put("AT", new ArrayList<>());
-        countryTripList.put("BE", new ArrayList<>());
+        for (String countryCode : countries) {
+            countryTripList.put(countryCode, new ArrayList<>());
+        }
 
         // Set initial last country code
         String currentCountryCode = getCountryCodeByLocation(locationList.get(0));
@@ -102,31 +97,33 @@ public class RouteEngine {
             }
         }
 
-        ForeignRoute foreignRouteNL = new ForeignRoute(countryCode, countryTripList.get("NL"), id);
-        ForeignRoute foreignRouteDE = new ForeignRoute(countryCode, countryTripList.get("DE"), id);
-        ForeignRoute foreignRouteBE = new ForeignRoute(countryCode, countryTripList.get("BE"), id);
-        ForeignRoute foreignRouteAT = new ForeignRoute(countryCode, countryTripList.get("AT"), id);
-        ForeignRoute foreignRouteLU = new ForeignRoute(countryCode, countryTripList.get("LU"), id);
+        List<ForeignRoute> foreignRoutes = new ArrayList<>();
+        for (String countryCode : countries) {
+            foreignRoutes.add(new ForeignRoute(countryCode, countryTripList.get(countryCode), id));
+        }
 
         Map<String, ForeignRoute> result = new HashMap<>();
 
-        if (foreignRouteAT.getTrips().size() != 0 && !countryCode.equals("AT")) {
-            result.put("AT", foreignRouteAT);
-        }
-        if (foreignRouteBE.getTrips().size() != 0 && !countryCode.equals("BE")) {
-            result.put("BE", foreignRouteBE);
-        }
-        if (foreignRouteNL.getTrips().size() != 0 && !countryCode.equals("NL")) {
-            result.put("NL", foreignRouteNL);
-        }
-        if (foreignRouteLU.getTrips().size() != 0 && !countryCode.equals("LU")) {
-            result.put("LU", foreignRouteLU);
-        }
-        if (foreignRouteDE.getTrips().size() != 0 && !countryCode.equals("DE")) {
-            result.put("DE", foreignRouteDE);
+        for (ForeignRoute r : foreignRoutes) {
+            if (r.getTrips().size() != 0 && !countryCode.equals(r.getOrigin())) {
+                result.put(r.getOrigin(), r);
+            }
         }
 
         return result;
+    }
+
+    /**
+     * Returns a list of foreign routes.
+     */
+    public Map<String, ForeignRoute> determineForeignRoutes(List<EULocation> locationList, String id) {
+        List<String> countries = new ArrayList<>();
+        countries.add("DE");
+        countries.add("LU");
+        countries.add("NL");
+        countries.add("AT");
+        countries.add("BE");
+        return determineRoutesForCountries(locationList, id, countries);
     }
 
     private String getCountryCodeByLocation(EULocation l) {

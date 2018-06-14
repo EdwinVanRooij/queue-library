@@ -7,6 +7,7 @@ import com.nonexistentcompany.lib.domain.EULocation;
 import com.nonexistentcompany.lib.domain.ForeignRoute;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeoutException;
@@ -22,6 +23,7 @@ public class Drive {
         String id = "XXX-029";
 
         // Henk starts driving
+//        List<EULocation> locationList = Util.simulateMultiTrip();
         List<EULocation> locationList = Util.simulateAllCountryTrip();
 
         // Once Henk is done driving, start calculating which points were in Germany
