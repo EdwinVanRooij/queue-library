@@ -23,6 +23,7 @@ public class Drive {
 
         // Henk starts driving
         List<EULocation> locationList = Util.simulateAllCountryTrip();
+//        List<EULocation> locationList = Util.simulateMultiTrip();
 
         // Once Henk is done driving, start calculating which points were in Germany
         Map<String, ForeignRoute> foreignLocations = engine.determineForeignRoutes(locationList, id);
