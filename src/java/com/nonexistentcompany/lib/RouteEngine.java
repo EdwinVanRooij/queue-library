@@ -38,7 +38,7 @@ public class RouteEngine {
     }
 
 
-    public Map<String, ForeignRoute> determineHomeRoute(List<EULocation> locationList, String id) throws IOException, TimeoutException {
+    public ForeignRoute determineHomeRoute(List<EULocation> locationList, String id) throws IOException, TimeoutException {
         // Sort the locations
         Collections.sort(locationList);
 
@@ -101,7 +101,7 @@ public class RouteEngine {
             result.put("DE", foreignRouteDE);
         }
 
-        return result;
+        return result.get(countryCode);
     }
 
     public boolean isLocationInOwnCountry(double lat, double lon) {
