@@ -16,7 +16,7 @@ import static com.nonexistentcompany.lib.Util.log;
 
 public class Drive {
 
-    private final static String country = "NL";
+    private final static String country = "DE";
     private static RouteEngine engine = new RouteEngine(country);
 
     public static void main(String[] args) throws InterruptedException, IOException, TimeoutException {
@@ -34,7 +34,7 @@ public class Drive {
         visualizeMap(homeLocations);
 
         // Send the routes to their country
-//        engine.sendRoutesToTheirCountry(foreignLocations);
+        engine.sendRoutesToTheirCountry(foreignLocations);
     }
 
     private static void visualizeMap(ForeignRoute route) {
